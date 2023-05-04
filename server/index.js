@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import { register } from './controllers/auth.js';
 
+import authRoutes from './routes/auth.js';
+
 // use express framewrok
 const app = express();
 
@@ -30,6 +32,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post('/auth/register', upload.single('picture'), register);
+
+app.use('/auth', authRoutes);
+
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
