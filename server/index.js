@@ -2,9 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import multer from 'multer';
+
 import { register } from './controllers/auth.js';
 
 import authRoutes from './routes/auth.js';
+import userRoutes from './routes/users.js';
 
 // use express framewrok
 const app = express();
@@ -34,6 +36,7 @@ const upload = multer({ storage });
 app.post('/auth/register', upload.single('picture'), register);
 
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 mongoose
   .connect(DB, {
